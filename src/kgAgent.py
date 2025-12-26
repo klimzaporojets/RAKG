@@ -1,3 +1,5 @@
+import traceback
+
 from langchain_core.prompts import ChatPromptTemplate
 from src.prompt import text2entity_en
 from src.prompt import extract_entiry_centric_kg_en_v2
@@ -131,6 +133,7 @@ class NER_Agent():
                     candidates_result.append(ent_pair)
             except Exception as e:
                 print(f"Error processing entity pair {ent_pair}: {str(e)}")
+                traceback.print_exc()
                 continue  # Can log or raise exception as needed
         
         # Step 3: Return final filtered candidate pairs
