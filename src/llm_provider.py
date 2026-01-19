@@ -9,6 +9,7 @@ from src.config import (
 )
 from openai import OpenAI
 
+
 class EmbeddingModelAdapter:
     def __init__(self, *, base_url: str, api_key: str, model: str):
         self.client = OpenAI(base_url=base_url, api_key=api_key)
@@ -16,11 +17,14 @@ class EmbeddingModelAdapter:
 
     def embed_documents(self, texts):
         resp = self.client.embeddings.create(model=self.model, input=texts)
-        return [x.embedding for x in resp.data]
+        data = sorted(resp.data, key=lambda d: d.index)  # <-- critical
+        return [d.embedding for d in data]
 
     def embed_query(self, text):
         resp = self.client.embeddings.create(model=self.model, input=[text])
+        assert len(resp.data) == 1
         return resp.data[0].embedding
+
 
 class LLMProvider:
     def __init__(self):
