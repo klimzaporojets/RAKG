@@ -21,7 +21,8 @@ class LLMProvider:
                 # api_key=OPENAI_API_KEY,
                 api_key=OPENAI_EMBEDDING_API_KEY,
                 # base_url=base_url
-                base_url=base_url_embedding_model
+                base_url=base_url_embedding_model,
+                tiktoken_enabled=False,
             )
             self.similarity_model = ChatOpenAI(
                 model=OPENAI_SIMILARITY_MODEL,
