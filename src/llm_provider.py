@@ -7,6 +7,20 @@ from src.config import (
     OPENAI_API_KEY, OPENAI_MODEL, OPENAI_EMBEDDING_MODEL, OPENAI_SIMILARITY_MODEL,
     USE_OPENAI, OPENAI_EMBEDDING_API_KEY, base_url, base_url_embedding_model
 )
+from openai import OpenAI
+
+class EmbeddingModelAdapter:
+    def __init__(self, *, base_url: str, api_key: str, model: str):
+        self.client = OpenAI(base_url=base_url, api_key=api_key)
+        self.model = model
+
+    def embed_documents(self, texts):
+        resp = self.client.embeddings.create(model=self.model, input=texts)
+        return [x.embedding for x in resp.data]
+
+    def embed_query(self, text):
+        resp = self.client.embeddings.create(model=self.model, input=[text])
+        return resp.data[0].embedding
 
 class LLMProvider:
     def __init__(self):
@@ -18,6 +32,7 @@ class LLMProvider:
                 base_url=base_url,
                 temperature=0,
             ).bind(response_format={"type": "json_object"})
+
             # self.embedding_model = OpenAIEmbeddings(
             #     model=OPENAI_EMBEDDING_MODEL,
             #     # api_key=OPENAI_API_KEY,
@@ -26,10 +41,15 @@ class LLMProvider:
             #     base_url=base_url_embedding_model,
             #     tiktoken_enabled=False,
             # )
-            self.embedding_model = OpenAI(
+            self.embedding_model = EmbeddingModelAdapter(
+                model=OPENAI_EMBEDDING_MODEL,
                 api_key=OPENAI_EMBEDDING_API_KEY,
                 base_url=base_url_embedding_model,  # e.g. https://willma.surf.nl/api/v0
             )
+            # self.embedding_model = OpenAI(
+            #     api_key=OPENAI_EMBEDDING_API_KEY,
+            #     base_url=base_url_embedding_model,  # e.g. https://willma.surf.nl/api/v0
+            # )
             self.similarity_model = ChatOpenAI(
                 model=OPENAI_SIMILARITY_MODEL,
                 api_key=OPENAI_API_KEY,

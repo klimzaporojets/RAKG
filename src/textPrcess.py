@@ -39,13 +39,12 @@ class TextProcessor:
         
         # Step 3: Vector storage
         print(f'kzaporoj, sentences_to_be_passed: {sentences}')
-        # vectors = self.embeddings.embed_documents(sentences)
-        resp = self.embeddings.embeddings.create(
-            model=OPENAI_EMBEDDING_MODEL,
-            input=sentences,  # List[str]
-        )
-
-        vectors = [d.embedding for d in resp.data]
+        vectors = self.embeddings.embed_documents(sentences)
+        # resp = self.embeddings.embeddings.create(
+        #     model=OPENAI_EMBEDDING_MODEL,
+        #     input=sentences,  # List[str]
+        # )
+        # vectors = [d.embedding for d in resp.data]
 
         return {
             "sentences": sentences,
