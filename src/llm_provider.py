@@ -1,5 +1,7 @@
 from langchain_ollama import OllamaLLM, OllamaEmbeddings
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from openai import OpenAI
+
 from src.config import (
     OLLAMA_BASE_URL, DEFAULT_MODEL, EMBEDDING_MODEL, SIMILARITY_MODEL,
     OPENAI_API_KEY, OPENAI_MODEL, OPENAI_EMBEDDING_MODEL, OPENAI_SIMILARITY_MODEL,
@@ -16,13 +18,17 @@ class LLMProvider:
                 base_url=base_url,
                 temperature=0,
             ).bind(response_format={"type": "json_object"})
-            self.embedding_model = OpenAIEmbeddings(
-                model=OPENAI_EMBEDDING_MODEL,
-                # api_key=OPENAI_API_KEY,
+            # self.embedding_model = OpenAIEmbeddings(
+            #     model=OPENAI_EMBEDDING_MODEL,
+            #     # api_key=OPENAI_API_KEY,
+            #     api_key=OPENAI_EMBEDDING_API_KEY,
+            #     # base_url=base_url
+            #     base_url=base_url_embedding_model,
+            #     tiktoken_enabled=False,
+            # )
+            self.embedding_model = OpenAI(
                 api_key=OPENAI_EMBEDDING_API_KEY,
-                # base_url=base_url
-                base_url=base_url_embedding_model,
-                tiktoken_enabled=False,
+                base_url=base_url_embedding_model,  # e.g. https://willma.surf.nl/api/v0
             )
             self.similarity_model = ChatOpenAI(
                 model=OPENAI_SIMILARITY_MODEL,
