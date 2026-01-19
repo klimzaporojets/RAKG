@@ -36,6 +36,7 @@ class TextProcessor:
             self.id_to_sentence[sent_id] = sent
         
         # Step 3: Vector storage
+        print(f'kzaporoj, sentences_to_be_passed: {sentences}')
         vectors = self.embeddings.embed_documents(sentences)
         return {
             "sentences": sentences,
