@@ -19,6 +19,7 @@ SIMILARITY_MODEL = "qwen2:7b"
 # kzaporoj, added mine:
 # OpenAI / proxy configuration
 base_url = 'https://ai-research-proxy.azurewebsites.net'
+base_url_embedding_model = 'https://willma.surf.nl/api/'
 
 # base_url = os.getenv(
 #     'OPENAI_BASE_URL',
@@ -26,10 +27,12 @@ base_url = 'https://ai-research-proxy.azurewebsites.net'
 # )
 
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+OPENAI_EMBEDDING_API_KEY = os.getenv('API_KEY_WILLMA_SURF')
 
 OPENAI_MODEL = 'nf-gpt-4o-mini'
 # OPENAI_EMBEDDING_MODEL = 'text-embedding-3-large'
-OPENAI_EMBEDDING_MODEL = 'nf-text-embedding-ada-002'
+# OPENAI_EMBEDDING_MODEL = 'nf-text-embedding-ada-002'
+OPENAI_EMBEDDING_MODEL = 'Qwen/Qwen3-Embedding-8B'
 OPENAI_SIMILARITY_MODEL = 'nf-gpt-4o-mini'
 
 
