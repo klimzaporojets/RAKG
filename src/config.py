@@ -19,7 +19,7 @@ SIMILARITY_MODEL = "qwen2:7b"
 # kzaporoj, added mine:
 # OpenAI / proxy configuration
 # base_url = 'https://ai-research-proxy.azurewebsites.net'
-base_url = 'https://api.openai.com'
+base_url = 'https://api.openai.com/v1'
 base_url_embedding_model = 'https://willma.surf.nl/api/v0'
 
 # base_url = os.getenv(
