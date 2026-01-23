@@ -30,6 +30,9 @@ class LLMProvider:
     def __init__(self):
         if USE_OPENAI:
             # 使用 ChatOpenAI 并启用 JSON 模式
+            print(f'self.llm_created_chatopenai: OPENAI_MODEL {OPENAI_MODEL}, '
+                  f'OPENAI_API_KEY {OPENAI_API_KEY} '
+                  f'base_url {base_url} ')
             self.llm = ChatOpenAI(
                 model=OPENAI_MODEL,
                 api_key=OPENAI_API_KEY,
